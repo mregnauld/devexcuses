@@ -12,5 +12,6 @@ class ColorsData
   static const splash = Color(0x1AF0F0F0);
   static const hintText = Color(0xFF707070);
   static const textCursor = Color(0xFFA0A0A0);
+  static const error = Color(0xFFB00000);
   
 }

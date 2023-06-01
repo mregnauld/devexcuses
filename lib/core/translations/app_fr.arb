@@ -1,8 +1,12 @@
 {
 
   "app": "Dev Excuses",
+
+  "commun_internal_error": "Erreur interne",
+  "commun_internet_error": "Aucune connexion internet",
   
   "random_title": "Excuse du moment",
+  "random_no_excuse": "Aucune excuse pour le moment",
   "random_generate": "GÉNÉRER",
   
   "add_excuse_title": "Ajouter une excuse",
