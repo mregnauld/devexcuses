@@ -10,9 +10,17 @@ environment:
 
 dependencies:
   
+  # Base :
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+
+  # State management :
+  flutter_riverpod: ^2.3.6
+  
+  # Système :
+  equatable: ^2.0.5
+  json_annotation: ^4.8.1
 
 dev_dependencies:
   
