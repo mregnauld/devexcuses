@@ -1,0 +1,3 @@
+# devexcuses
+
+Excuses de développeur
