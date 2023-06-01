@@ -12,6 +12,7 @@
   "add_excuse_title": "Ajouter une excuse",
   "add_excuse_message": "Saisissez votre nouvelle excuse\u00A0:",
   "add_excuse_hint": "Votre excuse",
+  "add_excuse_empty_message_error": "Merci de saisir un message",
   "add_excuse_submit": "AJOUTER"
   
 }

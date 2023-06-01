@@ -17,9 +17,13 @@ class WidgetHelper
       {
         message = (state.error as ValidatorFailure).message;
       }
-      if (state.error is ConnectionErrorFailure)
+      else if (state.error is ConnectionErrorFailure)
       {
         message = L10n.get(context).commun_internet_error;
+      }
+      else if (state.error is ServerFailure)
+      {
+        message = (state.error as ServerFailure).message;
       }
       else
       {

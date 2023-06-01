@@ -17,6 +17,16 @@ abstract class BasicMessageFailure extends Failure {}
 class InternalErrorFailure extends BasicMessageFailure {}
 class ConnectionErrorFailure extends BasicMessageFailure {}
 
+/// Erreur serveur.
+class ServerFailure extends Failure
+{
+  final String message;
+  ServerFailure(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
 /// Erreur validation.
 class ValidatorFailure extends Failure
 {

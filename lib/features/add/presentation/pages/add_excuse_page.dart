@@ -5,18 +5,22 @@ import 'package:devexcuses/core/design/widgets/buttons/icon_text_button.dart';
 import 'package:devexcuses/core/design/widgets/icons/plus_icon.dart';
 import 'package:devexcuses/core/design/widgets/inputs/basic_text_form_field.dart';
 import 'package:devexcuses/core/design/widgets/text/styled_text.dart';
+import 'package:devexcuses/core/helpers/widget_helper.dart';
+import 'package:devexcuses/core/providers/async_notifiers_providers.dart';
 import 'package:devexcuses/core/translations/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
-class AddExcusePage extends StatefulWidget
+class AddExcusePage extends ConsumerStatefulWidget
 {
   const AddExcusePage({super.key});
 
   @override
-  State<AddExcusePage> createState() => _AddExcusePageState();
+  ConsumerState<AddExcusePage> createState() => _AddExcusePageState();
 }
 
-class _AddExcusePageState extends State<AddExcusePage>
+class _AddExcusePageState extends ConsumerState<AddExcusePage>
 {
   
   final _controller = TextEditingController();
@@ -25,6 +29,16 @@ class _AddExcusePageState extends State<AddExcusePage>
   @override
   Widget build(BuildContext context)
   {
+    ref.listen<AsyncValue<bool>>(addExcuseNotifierProvider, (previous, next) {
+      if (next is AsyncError)
+      {
+        WidgetHelper.displayMessageIfError(next, ref, context);
+      }
+      else if (next is AsyncData<bool> && next.value)
+      {
+        context.pop();
+      }
+    });
     return Scaffold(
       backgroundColor: ColorsData.background,
       appBar: AppBarBasic(
@@ -61,16 +75,32 @@ class _AddExcusePageState extends State<AddExcusePage>
                   textInputAction: TextInputAction.done,
                   maxLength: 128,
                   controller: _controller,
-                  onFieldSubmitted: (input) {},
+                  onFieldSubmitted: (input) {
+                    ref.read(addExcuseNotifierProvider.notifier).addExcuse(input, context);
+                  },
                 ),
 
                 const SizedBox(height: DimensionsData.validationGap),
 
-                IconTextButton.defaut(
-                  icon: PlusIcon.button(context: context),
-                  label: L10n.get(context).add_excuse_submit,
-                  context: context,
-                  onTap: () {},
+                Consumer(
+                  builder: (context, ref, child) {
+                    final addExcuseAsyncValue = ref.watch(addExcuseNotifierProvider);
+                    if (addExcuseAsyncValue is AsyncLoading)
+                    {
+                      return const CircularProgressIndicator();
+                    }
+                    else
+                    {
+                      return IconTextButton.defaut(
+                        icon: PlusIcon.button(context: context),
+                        label: L10n.get(context).add_excuse_submit,
+                        context: context,
+                        onTap: () {
+                          ref.read(addExcuseNotifierProvider.notifier).addExcuse(_controller.text, context);
+                        },
+                      );
+                    }
+                  }
                 ),
               ],
             ),
@@ -79,4 +109,5 @@ class _AddExcusePageState extends State<AddExcusePage>
       ),
     );
   }
+  
 }

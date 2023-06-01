@@ -8,15 +8,15 @@ class ExcusesAPI
   static const _urlBase = "https://matthieuregnauld.fr/test/";
   static const _randomAPI = "random.php";
   static const _addExcuseAPI = "addexcuse.php";
-  
+  static const _cleMessage = "message";
   
   final HTTPClient httpClient;
   final ExcusesMapping excusesMapping;
-
+  
+  
   ExcusesAPI({
     required this.httpClient,
     required this.excusesMapping});
-  
   
   Future<ExcuseEntity> getRandomExcuse() async
   {
@@ -25,9 +25,10 @@ class ExcusesAPI
     return excusesMapping.getExcuseEntityFromJSON(data);
   }
   
-  Future<void> addExcuse(String message) async
+  Future<String?> addExcuse(String message) async
   {
-    await httpClient.postResponseToApi(_urlBase + _addExcuseAPI, message);
+    final response = await httpClient.postResponseToApi(_urlBase + _addExcuseAPI, {_cleMessage: message});
+    return response.data;
   }
   
 }
