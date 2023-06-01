@@ -1,5 +1,13 @@
 {
 
-  "app": "Dev Excuses"
+  "app": "Dev Excuses",
+  
+  "random_title": "Excuse du moment",
+  "random_generate": "GÉNÉRER",
+  
+  "add_excuse_title": "Ajouter une excuse",
+  "add_excuse_message": "Saisissez votre nouvelle excuse\u00A0:",
+  "add_excuse_hint": "Votre excuse",
+  "add_excuse_submit": "AJOUTER"
   
 }
