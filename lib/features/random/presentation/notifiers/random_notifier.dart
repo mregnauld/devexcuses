@@ -11,7 +11,7 @@ class RandomNotifier extends AutoDisposeAsyncNotifier<ExcuseEntity?>
   @override
   FutureOr<ExcuseEntity?> build() => null;
 
-
+  /// Génération de l'excuse.
   Future<void> generateExcuse(BuildContext context) async
   {
     try

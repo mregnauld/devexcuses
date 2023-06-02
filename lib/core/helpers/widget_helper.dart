@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class WidgetHelper
 {
 
+  /// Affiche un message d'erreur dans une snackbar, si erreur il y a.
   static void displayMessageIfError(AsyncValue state, WidgetRef ref, BuildContext context)
   {
     if (state is AsyncError && !state.isRefreshing && state.hasError)
@@ -28,6 +29,7 @@ class WidgetHelper
     }
   }
   
+  /// Retourne le contenu d'une snackbar pour affichage d'un message d'erreur.
   static SnackBar getErrorSnackbar({required String message, required BuildContext context})
   {
     return SnackBar(

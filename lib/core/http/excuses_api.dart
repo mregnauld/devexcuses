@@ -20,8 +20,10 @@ class ExcusesAPI
     required this.httpClient,
     required this.excusesMapping});
   
+  /// Retourne true si la réponse HTTP est valide.
   bool _isResponseValid(int? statusCode) => (statusCode != null && statusCode >= 200 && statusCode < 300);
   
+  /// Propage une erreur selon le code HTTP.
   bool _throwErrorFromStatusCode(int? statusCode)
   {
     if (statusCode == null)
@@ -50,6 +52,7 @@ class ExcusesAPI
     }
   }
   
+  /// Appel de l'API de génération aléatoire d'excuse.
   Future<ExcuseEntity?> getRandomExcuse() async
   {
     try
@@ -69,6 +72,7 @@ class ExcusesAPI
     return null;
   }
   
+  /// Appel de l'API d'ajout d'excuse.
   Future<String?> addExcuse(String message) async
   {
     try

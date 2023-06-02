@@ -14,6 +14,7 @@ class AddExcuseUseCase
     required this.connectivityManager,
   });
 
+  /// Ajout d'une nouvelle excuse.
   Future<void> launch(String message) async
   {
     // test de connexion à internet :

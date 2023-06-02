@@ -6,7 +6,7 @@ Excuses de développeur
 
 Afin de pouvoir tester l'application sur Android comme sur iOS, les étapes suivantes devront se faire sur Mac :
 
-## Environnement
+## Mettre en place l'environnement
 
 1. Installer le [SDK Flutter](https://docs.flutter.dev/get-started/install/macos#get-sdk)
 2. Installer [Android Studio](https://developer.android.com/studio)
@@ -14,7 +14,7 @@ Afin de pouvoir tester l'application sur Android comme sur iOS, les étapes suiv
 4. Lancer Android Studio, puis aller dans le menu `Android Studio > Settings > Plugins`
 5. Installer les plugins Dart, Flutter et Flutter Intl
 
-## Application
+## Lancer l'application
 
 1. Depuis le terminal, lancer : `git clone https://github.com/mregnauld/devexcuses.git`
 2. Lancer Android Studio et ouvrir le projet Dev Excuses
@@ -23,4 +23,8 @@ Afin de pouvoir tester l'application sur Android comme sur iOS, les étapes suiv
 5. Lancer le projet :
     - en cliquant sur la flèche verte pour un test en mode debug
     - en allant dans le menu `Run > Flutter Run 'main.dart' in Release Mode` pour un test en mode release
-6. Enjoy!
+
+## Description et fonctionnement
+
+- La première page de l'application permet d'appeller un back-end qui renvoit une excuse aléatoire.
+- La seconde page, accessible via le bouton '+' de l'app bar, permet d'ajouter une nouvelle excuse en appelant une seconde API de ce même back-end.

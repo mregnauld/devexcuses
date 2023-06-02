@@ -8,9 +8,7 @@ class ConnectivityManager
   
   ConnectivityManager({required this.internetConnectionChecker});
   
-  Future<bool> isConnected() async
-  {
-    return await internetConnectionChecker.hasConnection;
-  }
+  /// Retourne true si l'utilisateur est bien connecté à Internet.
+  Future<bool> isConnected() => internetConnectionChecker.hasConnection;
 
 }

@@ -11,6 +11,7 @@ class AppRouter
   static const addExcusePage = "add_excuse";
 
 
+  /// Routes
   late final router = GoRouter(
     initialLocation: "/$randomPage",
     routes: [
@@ -29,12 +30,13 @@ class AppRouter
     ],
   );
 
+  /// Retourne une page avec une animation de transition d'entrée et de sortie.
   CustomTransitionPage _getPageWithAnimation(Widget page, {Function transition = RoutesTransitions.noTransition})
   {
-    int dureeTransitionFinaleMs = (transition == RoutesTransitions.noTransition ? 0 : 250);
+    int transitionDurationMs = (transition == RoutesTransitions.noTransition ? 0 : 250);
     return CustomTransitionPage(
         child: page,
-        transitionDuration: Duration(milliseconds: dureeTransitionFinaleMs),
+        transitionDuration: Duration(milliseconds: transitionDurationMs),
         transitionsBuilder: (
             BuildContext context,
             Animation<double> animation,

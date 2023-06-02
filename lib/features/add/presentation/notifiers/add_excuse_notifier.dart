@@ -11,7 +11,7 @@ class AddExcuseNotifier extends AutoDisposeAsyncNotifier<bool>
   @override
   FutureOr<bool> build() => false;
 
-
+  /// Ajout d'une nouvelle excuse.
   Future<void> addExcuse(String message, BuildContext context) async
   {
     try

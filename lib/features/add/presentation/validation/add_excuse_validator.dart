@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class AddExcuseValidator
 {
 
+  /// Validation de la saisie.
   void validate(String message, BuildContext context)
   {
     if (message.isEmpty)

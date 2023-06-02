@@ -25,19 +25,22 @@ class _AddExcusePageState extends ConsumerState<AddExcusePage>
   
   final _controller = TextEditingController();
   
+  /// Gestion du retour de l'API.
+  void _manageAddExcuseResult(AsyncValue<bool> value)
+  {
+    if (value is AsyncData<bool> && value.value)
+    {
+      context.pop();
+      return;
+    }
+    WidgetHelper.displayMessageIfError(value, ref, context);
+  }
   
   @override
   Widget build(BuildContext context)
   {
     ref.listen<AsyncValue<bool>>(addExcuseNotifierProvider, (previous, next) {
-      if (next is AsyncError)
-      {
-        WidgetHelper.displayMessageIfError(next, ref, context);
-      }
-      else if (next is AsyncData<bool> && next.value)
-      {
-        context.pop();
-      }
+      _manageAddExcuseResult(next);
     });
     return Scaffold(
       backgroundColor: ColorsData.background,
@@ -84,13 +87,16 @@ class _AddExcusePageState extends ConsumerState<AddExcusePage>
 
                 Consumer(
                   builder: (context, ref, child) {
+                    // gestion de l'affichage selon les retours de l'API :
                     final addExcuseAsyncValue = ref.watch(addExcuseNotifierProvider);
                     if (addExcuseAsyncValue is AsyncLoading)
                     {
-                      return const CircularProgressIndicator();
+                      // attente :
+                      return const CircularProgressIndicator(color: ColorsData.mainIcon);
                     }
                     else
                     {
+                      // autres cas :
                       return IconTextButton.defaut(
                         icon: PlusIcon.button(context: context),
                         label: L10n.get(context).add_excuse_submit,

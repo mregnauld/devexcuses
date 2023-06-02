@@ -9,6 +9,7 @@ class ExcusesMapping
   static const _message = "message";
   
   
+  /// Effectue un mapping du JSON vers un objet métier indépendant de l'implémentation de l'API.
   ExcuseEntity getExcuseEntityFromJSON(String json)
   {
     final jsonMap = jsonDecode(json);

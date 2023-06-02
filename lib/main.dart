@@ -13,7 +13,6 @@ void main()
 
 class DevExcusesApp extends StatelessWidget
 {
-
   const DevExcusesApp({super.key});
 
   @override

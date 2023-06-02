@@ -16,6 +16,7 @@ class GenerateExcuseUseCase
     required this.connectivityManager,
   });
 
+  /// Génération de l'excuse.
   Future<ExcuseEntity> launch() async
   {
     // test de connexion à internet :

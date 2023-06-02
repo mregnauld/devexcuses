@@ -27,6 +27,7 @@ class RandomPage extends ConsumerStatefulWidget
 class _RandomPageState extends ConsumerState<RandomPage>
 {
   
+  /// Bouton 'Générer.
   Widget _getGenerateButton()
   {
     return IconTextButton.defaut(
@@ -41,10 +42,7 @@ class _RandomPageState extends ConsumerState<RandomPage>
   Widget build(BuildContext context)
   {
     ref.listen<AsyncValue<ExcuseEntity?>>(randomNotifierProvider, (previous, next) {
-      if (next is AsyncError)
-      {
-        WidgetHelper.displayMessageIfError(next, ref, context);
-      }
+      WidgetHelper.displayMessageIfError(next, ref, context);
     });
     return Scaffold(
       backgroundColor: ColorsData.background,
@@ -69,9 +67,11 @@ class _RandomPageState extends ConsumerState<RandomPage>
           child: SingleChildScrollView(
             child: Consumer(
               builder: (context, ref, child) {
+                // gestion de l'affichage selon les retours de l'API :
                 final excuseAsyncValue = ref.watch(randomNotifierProvider);
                 if (excuseAsyncValue is AsyncData<ExcuseEntity?>)
                 {
+                  // cas nominal :
                   return Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -94,10 +94,12 @@ class _RandomPageState extends ConsumerState<RandomPage>
                 }
                 else if (excuseAsyncValue is AsyncLoading)
                 {
-                  return const CircularProgressIndicator();
+                  // attente :
+                  return const CircularProgressIndicator(color: ColorsData.mainIcon);
                 }
                 else if (excuseAsyncValue is AsyncError)
                 {
+                  // erreur (on réaffiche le bouton) :
                   return _getGenerateButton();
                 }
                 return const SizedBox.shrink();
