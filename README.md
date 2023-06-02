@@ -4,7 +4,7 @@ Excuses de développeur
 
 # Installation
 
-Afin de pouvoir tester l'application sur Android comme sur iOS, les étapes suivantes devront se faire sur Mac :
+Afin de pouvoir tester l'application sur Android comme sur iOS, les étapes suivantes devront se faire sur Mac.
 
 ## Mettre en place l'environnement
 
