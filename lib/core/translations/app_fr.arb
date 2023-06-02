@@ -2,8 +2,14 @@
 
   "app": "Dev Excuses",
 
-  "commun_internal_error": "Erreur interne",
-  "commun_internet_error": "Aucune connexion internet",
+  "common_internal_error": "Erreur interne",
+  "common_internet_error": "Aucune connexion internet",
+  "common_server_redirection_error": "Erreur redirection serveur",
+  "common_internal_server_error": "Erreur interne serveur",
+  "common_unknown_server_error": "Erreur inconnue serveur",
+  "common_forbidden_access_error": "Accès refusé",
+  "common_resource_not_found_error": "Ressource introuvable",
+  "common_server_message_error": "Erreur serveur : ",
   
   "random_title": "Excuse du moment",
   "random_no_excuse": "Aucune excuse pour le moment",

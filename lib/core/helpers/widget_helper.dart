@@ -13,21 +13,13 @@ class WidgetHelper
     if (state is AsyncError && !state.isRefreshing && state.hasError)
     {
       String message;
-      if (state.error is ValidatorFailure)
+      if (state.error is Failure)
       {
-        message = (state.error as ValidatorFailure).message;
-      }
-      else if (state.error is ConnectionErrorFailure)
-      {
-        message = L10n.get(context).commun_internet_error;
-      }
-      else if (state.error is ServerFailure)
-      {
-        message = (state.error as ServerFailure).message;
+        message = (state.error as Failure).message;
       }
       else
       {
-        message = L10n.get(context).commun_internal_error;
+        message = L10n.get(context).common_internal_error;
       }
       ScaffoldMessenger.of(context).showSnackBar(
           WidgetHelper.getErrorSnackbar(

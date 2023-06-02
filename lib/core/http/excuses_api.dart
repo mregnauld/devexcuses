@@ -1,6 +1,8 @@
 import 'package:devexcuses/core/entities/excuse_entity.dart';
+import 'package:devexcuses/core/errors/errors.dart';
 import 'package:devexcuses/core/http/internal/excuses_mapping.dart';
 import 'package:devexcuses/core/http/internal/http_client.dart';
+import 'package:dio/dio.dart';
 
 class ExcusesAPI
 {
@@ -18,17 +20,71 @@ class ExcusesAPI
     required this.httpClient,
     required this.excusesMapping});
   
-  Future<ExcuseEntity> getRandomExcuse() async
+  bool _isResponseValid(int? statusCode) => (statusCode != null && statusCode >= 200 && statusCode < 300);
+  
+  bool _throwErrorFromStatusCode(int? statusCode)
   {
-    final response = await httpClient.getResponseFromApi(_urlBase + _randomAPI);
-    final data = response.data.toString();
-    return excusesMapping.getExcuseEntityFromJSON(data);
+    if (statusCode == null)
+    {
+      throw UnknownServerError();
+    }
+    else if (statusCode >= 300 && statusCode < 400)
+    {
+      throw ServerRedirectionError();
+    }
+    else if (statusCode == 403)
+    {
+      throw ForbiddenAccessError();
+    }
+    else if (statusCode == 404)
+    {
+      throw ResourceNotFoundError();
+    }
+    else if (statusCode >= 500 && statusCode < 600)
+    {
+      throw InternalServerError();
+    }
+    else
+    {
+      throw UnknownServerError();
+    }
+  }
+  
+  Future<ExcuseEntity?> getRandomExcuse() async
+  {
+    try
+    {
+      final response = await httpClient.getResponseFromApi(_urlBase + _randomAPI);
+      if (_isResponseValid(response.statusCode))
+      {
+        final data = response.data.toString();
+        return excusesMapping.getExcuseEntityFromJSON(data);
+      }
+      throw UnknownServerError();
+    }
+    on DioError catch (error)
+    {
+      _throwErrorFromStatusCode(error.response?.statusCode);
+    }
+    return null;
   }
   
   Future<String?> addExcuse(String message) async
   {
-    final response = await httpClient.postResponseToApi(_urlBase + _addExcuseAPI, {_cleMessage: message});
-    return response.data;
+    try
+    {
+      final response = await httpClient.postResponseToApi(_urlBase + _addExcuseAPI, {_cleMessage: message});
+      if (_isResponseValid(response.statusCode))
+      {
+        return response.data;
+      }
+      throw UnknownServerError();
+    }
+    on DioError catch (error)
+    {
+      _throwErrorFromStatusCode(error.response?.statusCode);
+    }
+    return null;
   }
   
 }

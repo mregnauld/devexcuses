@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:devexcuses/core/entities/excuse_entity.dart';
+import 'package:devexcuses/core/providers/managers_providers.dart';
 import 'package:devexcuses/core/providers/usecases_providers.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class RandomNotifier extends AutoDisposeAsyncNotifier<ExcuseEntity?>
@@ -10,17 +12,24 @@ class RandomNotifier extends AutoDisposeAsyncNotifier<ExcuseEntity?>
   FutureOr<ExcuseEntity?> build() => null;
 
 
-  Future<void> generateExcuse() async
+  Future<void> generateExcuse(BuildContext context) async
   {
-    // lock :
-    if (state is AsyncLoading) return;
+    try
+    {
+      // lock :
+      if (state is AsyncLoading) return;
 
-    // requète :
-    state = const AsyncLoading();
-    final useCaseEither = await ref.watch(generateExcuseUseCaseProvider).launch();
-    state = useCaseEither.fold(
-            (failure) => AsyncError(failure, failure.stackTrace),
-            (result) => AsyncValue.data(result));
+      // requète :
+      state = const AsyncLoading();
+      final excuseEntity = await ref.watch(generateExcuseUseCaseProvider).launch();
+      state = AsyncValue.data(excuseEntity);
+    }
+    catch (error, stacktrace)
+    {
+      state = AsyncError(
+          ref.watch(errorFailureManagerProvider).getFailureFromError(error, context),
+          stacktrace);
+    }
   }
 
 }

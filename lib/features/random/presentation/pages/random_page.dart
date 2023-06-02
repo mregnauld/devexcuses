@@ -33,7 +33,7 @@ class _RandomPageState extends ConsumerState<RandomPage>
       icon: RefreshIcon.button(context: context),
       label: L10n.get(context).random_generate,
       context: context,
-      onTap: () => ref.read(randomNotifierProvider.notifier).generateExcuse(),
+      onTap: () => ref.read(randomNotifierProvider.notifier).generateExcuse(context),
     );
   }
   
